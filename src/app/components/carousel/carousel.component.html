@@ -1,0 +1,22 @@
+<!-- carousel -->
+<section class="w-100">
+    <div class="row w-100 gx-3 m-0 p-0" id="cardContainer">
+        <ng-container *ngFor="let item of serviceItems | slice:0:itemsVisible; let i = index">
+            <div
+                [ngClass]="[itemsVisible === 5 ? 'col-custom-5' : '', itemsVisible === 3 ? 'col-4' : '', itemsVisible === 1 ? 'col-12' : '', ' text-center']">
+                <h4 *ngIf="i === 1">What are you <h4><b>here to do?</b></h4>
+                </h4>
+                <app-card [selected]="currentSlide === i" [serviceItemImage]="item.serviceItemImage"
+                    [serviceItemTagline]="item.serviceItemTagline" [serviceItemTitle]="item.serviceItemTitle"
+                    [serviceItemCTAText]="item.serviceItemCTAText"
+                    [serviceItemCTAURL]="item.serviceItemCTAURL"></app-card>
+                <button *ngIf="i === 1" (click)="onPreviousClick()" class="control prev">
+                    <fa-icon [icon]="faChevronLeft" size="lg"></fa-icon>
+                </button>
+                <button *ngIf="i === 3" (click)="onNextClick()" class="control next">
+                    <fa-icon [icon]="faChevronRight" size="lg"></fa-icon>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</section>

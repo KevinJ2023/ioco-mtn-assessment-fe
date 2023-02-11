@@ -1,0 +1,20 @@
+// =========================
+// Carousel
+// =========================
+
+#cardContainer > div:first-child {
+    padding-left: 0px;
+}
+#cardContainer > div:last-child {
+    padding-right: 0px;
+}
+
+.col-custom-5 {
+    width: 20%;
+    float: left;
+}
+
+.control {
+    background-color: transparent;
+    border: 0;
+}
