@@ -1,22 +1,77 @@
 <!-- carousel -->
 <section class="w-100">
-    <div class="row w-100 gx-3 m-0 p-0" id="cardContainer">
-        <ng-container *ngFor="let item of serviceItems | slice:0:itemsVisible; let i = index">
-            <div
-                [ngClass]="[itemsVisible === 5 ? 'col-custom-5' : '', itemsVisible === 3 ? 'col-4' : '', itemsVisible === 1 ? 'col-12' : '', ' text-center']">
-                <h4 *ngIf="i === 1">What are you <h4><b>here to do?</b></h4>
-                </h4>
-                <app-card [selected]="currentSlide === i" [serviceItemImage]="item.serviceItemImage"
-                    [serviceItemTagline]="item.serviceItemTagline" [serviceItemTitle]="item.serviceItemTitle"
-                    [serviceItemCTAText]="item.serviceItemCTAText"
-                    [serviceItemCTAURL]="item.serviceItemCTAURL"></app-card>
-                <button *ngIf="i === 1" (click)="onPreviousClick()" class="control prev">
-                    <fa-icon [icon]="faChevronLeft" size="lg"></fa-icon>
-                </button>
-                <button *ngIf="i === 3" (click)="onNextClick()" class="control next">
-                    <fa-icon [icon]="faChevronRight" size="lg"></fa-icon>
-                </button>
-            </div>
-        </ng-container>
-    </div>
+  <div
+    class="row w-100 gx-3 m-0 p-0 d-flex align-items-center"
+    id="cardContainer"
+  >
+    <ng-container
+      *ngFor="
+        let item of serviceItems | slice : 0 : itemsVisible;
+        let i = index
+      "
+    >
+      <div
+        [class.middle-column]="
+          (itemsVisible === 5 && i === 2) ||
+          (itemsVisible === 3 && i === 1) ||
+          itemsVisible === 1
+        "
+        [class.col-3]="
+          (itemsVisible === 5 && i === 2) ||
+          (itemsVisible === 3 && i === 1) ||
+          itemsVisible === 1
+        "
+        [class.first-column]="
+          (itemsVisible === 5 && i !== 2) || (itemsVisible === 3 && i !== 1)
+        "
+        [class.col-2]="
+          (itemsVisible === 5 && i !== 2) || (itemsVisible === 3 && i !== 1)
+        "
+      >
+        <div class="spacer d-flex">
+          <h4
+            *ngIf="
+              (itemsVisible === 5 && i === 1) ||
+              ((itemsVisible === 3 || itemsVisible === 1) && i === 0)
+            "
+            class="carousel__leading_question mt-auto"
+          >
+            What are you
+            <h4 class="text-left">here to do?</h4>
+          </h4>
+        </div>
+        <ng-card-component
+          [selected]="currentSlide === i"
+          [serviceItemImage]="item.serviceItemImage"
+          [serviceItemTagline]="item.serviceItemTagline"
+          [serviceItemTitle]="item.serviceItemTitle"
+          [serviceItemCTAText]="item.serviceItemCTAText"
+          [serviceItemCTAURL]="item.serviceItemCTAURL"
+        ></ng-card-component>
+        <div class="spacer d-flex">
+          <button
+            *ngIf="
+              (itemsVisible === 5 && i === 1) ||
+              ((itemsVisible === 3 || itemsVisible === 1) && i === 0)
+            "
+            (click)="onPreviousClick()"
+            class="control prev"
+          >
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+          </button>
+          <button
+            *ngIf="
+              (itemsVisible === 5 && i === 3) ||
+              (itemsVisible === 3 && i === 2) ||
+              (itemsVisible === 1 && i === 0)
+            "
+            (click)="onNextClick()"
+            class="control next"
+          >
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </section>

@@ -1,19 +1,22 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ServiceItem } from 'src/app/services/interfaces/service-item';
 import { ServiceItemService } from 'src/app/services/serviceItem.service';
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-
+import {
+  faChevronRight,
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-carousel',
+  exportAs: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
 })
 export class CarouselComponent implements OnInit {
   faChevronRight = faChevronRight;
-  faChevronLeft= faChevronLeft;
+  faChevronLeft = faChevronLeft;
   serviceItems: ServiceItem[] = [];
   itemsVisible: number = 5;
-  currentSlide = 2;
+  currentSlide: number = 0;
 
   constructor(private serviceItemService: ServiceItemService) {}
 
@@ -37,20 +40,27 @@ export class CarouselComponent implements OnInit {
   updateScreenSize(windowWidth: number) {
     if (windowWidth < 640) {
       this.itemsVisible = 1;
+      this.currentSlide = 0;
     } else if (windowWidth >= 640 && windowWidth <= 1024) {
       this.itemsVisible = 3;
+      this.currentSlide = 1;
     } else if (windowWidth > 1024) {
       this.itemsVisible = 5;
+      this.currentSlide = 2;
     }
   }
 
+  arrayRotate(arr: any, reverse?: boolean) {
+    if (reverse) arr.unshift(arr.pop());
+    else arr.push(arr.shift());
+    return arr;
+  }
+
   onPreviousClick() {
-    const previous = this.currentSlide - 1;
-    this.currentSlide = previous < 0 ? this.serviceItems.length - 1 : previous;
+    this.arrayRotate(this.serviceItems, true);
   }
 
   onNextClick() {
-    const next = this.currentSlide + 1;
-    this.currentSlide = next === this.serviceItems.length ? 0 : next;
+    this.arrayRotate(this.serviceItems, false);
   }
 }

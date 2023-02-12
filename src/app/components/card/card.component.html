@@ -1,8 +1,0 @@
-<div [ngClass]="[selected ? 'card__active ' : 'card__not_active', 'card__container']">
-    <img class="card__service__image" alt="Service image (Cross)" [src]="serviceItemImage" width="100%" />
-    <h4 class="card__service__tagline">{{ serviceItemTagline }}</h4>
-    <div class="card__service__cta_container" *ngIf="selected">
-        <h4>{{ serviceItemCTAText }}</h4>
-        <fa-icon [icon]="faChevronRight" size="sm"></fa-icon>
-    </div>
-</div>
