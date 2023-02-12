@@ -1,1 +1,2 @@
-
+name: Install Latest Angular
+uses: actions/angular-github-actions
